@@ -1,14 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
-const { Permissions } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('unmute')
         .setDescription('unmutes the user you want!')
-        .addUserOption(option => option.setName('target').setDescription('User you want to mute').setRequired(true)),
-        permissions: [Permissions.FLAGS.MANAGE_MESSAGES],
+        .addUserOption(option => option.setName('target').setDescription('User you want to mute').setRequired(true))
+        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
     async execute(interaction) {
         const target = interaction.options.getMember('target')
         let role = interaction.guild.roles.cache.find(r => r.name === 'muted')
@@ -20,7 +19,7 @@ module.exports = {
             await interaction.reply("User is already unmuted!");
         } else {
             if(target) {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                 .setColor('GREEN')
                 .setDescription(`✅ ${target} has been unmuted`);
                 target.roles.remove(role);

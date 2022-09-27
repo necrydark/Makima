@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, Message } = require('discord.js');
+const { EmbedBuilder, Message } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -9,7 +9,7 @@ module.exports = {
 	async execute(interaction) {
 		const user = interaction.options.getUser('target');
 		if (user) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle(`**${user.username}#${user.discriminator} Avatar**`)
             .setColor('BLUE')
             .setImage(`${user.displayAvatarURL({dynamic:true, size: 1024})}`)
@@ -20,7 +20,7 @@ module.exports = {
             .setFooter(`Requested by: ${user.username}#${user.discriminator}`, user.displayAvatarURL({dynamic: true}));
            return interaction.reply({embeds: [embed]});
         } else {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setTitle(`**${interaction.user.username}#${interaction.user.discriminator} Avatar**`)
             .setColor('BLUE')
             .setImage(`${interaction.user.displayAvatarURL({dynamic:true, size: 1024})}`)

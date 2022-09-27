@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
-const { Permissions } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
+// const { PermissionsBitField } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,8 +11,9 @@ module.exports = {
         .addStringOption(option =>
             option.setName('reason')
                 .setDescription('Reason as to why user needs to be banned')
-                .setRequired(false)),
-        permissions: [Permissions.FLAGS.ADMINISTRATOR],
+                .setRequired(false))
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+                
 
     async execute(interaction) {
         const target = interaction.options.getMember('target')
@@ -21,13 +22,13 @@ module.exports = {
         if(!target) await interaction.reply('You need to add a target!');
 
             if(target && !reason) {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                 .setColor('GREEN')
                 .setDescription(`✅ ${target} has been banned`);
                 target.ban()
                 await interaction.reply({ embeds: [embed]});
             } else {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                 .setColor('GREEN')
                 .setDescription(`✅ ${target} has been banned for ${reason}`);
                 target.ban();

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
-const { Permissions } = require('discord.js');
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
+// const { PermissionsBitField } = require('discord.js');
 
 
 module.exports = {
@@ -12,9 +12,8 @@ module.exports = {
         .addStringOption(option =>
             option.setName('reason')
                 .setDescription('Reason as to why user needs to be kicked')
-                .setRequired(false)),
-                permissions: [Permissions.FLAGS.KICK_MEMBERS],
-
+                .setRequired(false))
+        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
     async execute(interaction) {
         const target = interaction.options.getMember('target')
         const reason = interaction.options.getString('reason');
@@ -22,13 +21,13 @@ module.exports = {
         if(!target) await interaction.reply('You need to add a target!');
 
             if(target && !reason) {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                 .setColor('GREEN')
                 .setDescription(`✅ ${target} has been kicked`);
                 target.kick()
                 await interaction.reply({ embeds: [embed]});
             } else {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                 .setColor('GREEN')
                 .setDescription(`✅ ${target} has been kicked for ${reason}`);
                 target.kick();
