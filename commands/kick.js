@@ -22,13 +22,13 @@ module.exports = {
 
             if(target && !reason) {
                 const embed = new EmbedBuilder()
-                .setColor('GREEN')
+                .setColor('Green')
                 .setDescription(`✅ ${target} has been kicked`);
                 target.kick()
                 await interaction.reply({ embeds: [embed]});
             } else {
                 const embed = new EmbedBuilder()
-                .setColor('GREEN')
+                .setColor('Green')
                 .setDescription(`✅ ${target} has been kicked for ${reason}`);
                 target.kick();
                 await interaction.reply({ embeds: [embed]});

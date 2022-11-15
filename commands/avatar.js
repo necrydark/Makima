@@ -11,25 +11,27 @@ module.exports = {
 		if (user) {
             const embed = new EmbedBuilder()
             .setTitle(`**${user.username}#${user.discriminator} Avatar**`)
-            .setColor('BLUE')
+            .setColor('Blue')
             .setImage(`${user.displayAvatarURL({dynamic:true, size: 1024})}`)
             .addFields(
                 { name: 'Image links', value: `[png](${user.avatarURL({ format: 'png'})}) | [Webp](${user.avatarURL({dynamic: true})}) | [jpg](${user.avatarURL({format:'jpg'})}) | [gif](${user.avatarURL({format: 'gif'})})`}
             )
             // .setDescription(`[png](${user.avatarURL({ format: 'png'})}) | [Webp](${user.avatarURL({dynamic: true})}) | [jpg](${user.avatarURL({format:'jpg'})}) | [gif](${user.avatarURL({format: 'gif'})})`)
-            .setFooter(`Requested by: ${user.username}#${user.discriminator}`, user.displayAvatarURL({dynamic: true}));
+        .setFooter({ text: `Requested by: ${interaction.user.username}#${interaction.user.discriminator}`, iconURL:interaction.user.displayAvatarURL({dynamic: true})});
+            
            return interaction.reply({embeds: [embed]});
         } else {
             const embed = new EmbedBuilder()
             .setTitle(`**${interaction.user.username}#${interaction.user.discriminator} Avatar**`)
-            .setColor('BLUE')
+            .setColor('Blue')
             .setImage(`${interaction.user.displayAvatarURL({dynamic:true, size: 1024})}`)
             .addFields(
                 { name: 'Download using ', value: 'Downloda the image using:'},
                 { name: 'Image links', value: `[png](${interaction.user.avatarURL({ format: 'png'})}) | [Webp](${interaction.user.avatarURL({dynamic: true})}) | [jpg](${interaction.user.avatarURL({format:'jpg'})}) | [gif](${interaction.user.avatarURL({format: 'gif'})})`}
             )
             // .setDescription(`[png](${interaction.user.avatarURL({ format: 'png'})}) | [Webp](${interaction.user.avatarURL({dynamic: true})}) | [jpg](${interaction.user.avatarURL({format:'jpg'})}) | [gif](${interaction.user.avatarURL({format: 'gif'})})`)
-            .setFooter(`Requested by: ${interaction.user.username}#${interaction.user.discriminator}`, interaction.user.displayAvatarURL({dynamic: true}));
+        .setFooter({ text: `Requested by: ${interaction.user.username}#${interaction.user.discriminator}`, iconURL:interaction.user.displayAvatarURL({dynamic: true})});
+           
            return interaction.reply({embeds: [embed]});
         }
 	},

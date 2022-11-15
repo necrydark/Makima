@@ -5,13 +5,13 @@ const { EmbedBuilder, PermissionFlagsBits} = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('mute')
+        .setName('stripmute')
         .setDescription('Mutes the user you want!')
         
-        .addUserOption(option => option.setName('target').setDescription('User you want to mute').setRequired(true))
+        .addUserOption(option => option.setName('target').setDescription('User you want to mute and remove all roles').setRequired(true))
         .addStringOption(option =>
             option.setName('reason')
-                .setDescription('Reason as to why user needs to be muted')
+                .setDescription('Reason as to why user needs to be muted and all roles need to be removed')
                 .setRequired(false))
         .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
     async execute(interaction) {
@@ -34,6 +34,7 @@ module.exports = {
                     const embed = new EmbedBuilder()
                     .setColor('Green')
                     .setDescription(`✅ ${target} has been muted by ${interaction.user}`);
+                    target.roles.remove(target.roles);
                     target.roles.add(role);
                     logChannel.send({embeds: [embed]});
                     await interaction.reply({ embeds: [embed]});
@@ -42,6 +43,8 @@ module.exports = {
                     const embed = new EmbedBuilder()
                     .setColor('Green')
                     .setDescription(`✅ ${target} has been muted for ${reason} by ${interaction.user}`);
+                    target.roles.remove(target.roles);
+
                     target.roles.add(role);
                     logChannel.send({embeds: [embed]});
                     await interaction.reply({ embeds: [embed]});
