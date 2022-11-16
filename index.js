@@ -1,8 +1,9 @@
-const { Client, GatewayIntentBits, Collection, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, EmbedBuilder, ActivityType, Partials } = require('discord.js');
 const { token } = require('./config.json');
 const fs = require('node:fs');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages], partials: ['MESSAGE', 'CHANNEL'] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent], partials: [Partials.Channel, Partials.Message] });
+//'MESSAGE', 'CHANNEL'
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
@@ -16,7 +17,7 @@ for (const file of eventFiles) {
 }
 
 // const filter = ["nigger", "c00ns", "n1gger", "nigga","fag","f4g", "ni66er", "nig6er", "nigg3r", "nigg4","n1gg4" , "n1gg3r","chink", "ch1nk", "nigs", "n1gs", "n!gger", "n|gger", "niggur", 'n1ggur', 'n!ggur', "tranny", "trannie", "tr4nny", "tr4nnie","XyZKsOq", "r9EWkux", "SAvJYv5", "steamconm", "stearncor", "steamncon", "steamcommi", "steamcomun", "steamcommun", "steamcommunityu", "steancommunytiu", "stearncomminuty", "d1scord", "dlscord", "discorb", "discorcl", "discords-", "d1scord-", "d1scord-gift", "discordgift", "nitrogift", "discordwales", "givenitro", "free-nitro", "roblox-com", "?pantner", "give-nitro", "com/gift", "info/promo", "trade/offer", "giveaway/discord", "&token", "/airdrop", "bit.ly", "rb.gy", "short.io", "linklyhq.com", "clickmeter.com", "pixelme.me", "bl.ink", "cutt.ly", "soo.gd", "tinycc.com", "clkim.com", "tinyurl.com", "t2mio.com", "tiny.ie", "shorturl.at", "bit.do", "yourls.org", "musicjet.com", "adf.ly", "is.gd", "ru.com", ".ru", ".link", ".su", ".site", ".click"];
-
+//"mongodb": "mongodb+srv://darkdevadmin:VsBvLuI6mArIYx51@cluster0.ya608lo.mongodb.net/?retryWrites=true&w=majority"
 
 client.commands = new Collection();
 // const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -25,6 +26,8 @@ client.commands = new Collection();
 // 	const command = require(`./commands/${file}`);
 // 	client.commands.set(command.data.name, command);
 // }
+
+
 
 const commandsFolder = fs.readdirSync("./commands");
 for (const folder of commandsFolder) {
@@ -58,11 +61,15 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.on('messageCreate', async message => {
-    const filter = ["nigger", "c00ns", "n1gger", "nigga", "fag", "f4g", "chink", "ch1nk", "nigs", "n1gs", "n!gger", "n|gger", "niggur", 'n1ggur', 'n!ggur', "tranny", "trannie", "tr4nny", "tr4nnie", "XyZKsOq", "r9EWkux", "SAvJYv5", "steamconm", "stearncor", "steamncon", "steamcommi", "steamcomun", "steamcommun", "steamcommunityu", "steancommunytiu", "stearncomminuty", "d1scord", "dlscord", "discorb", "discorcl", "discords-", "d1scord-", "d1scord-gift", "discordgift", "nitrogift", "discordwales", "givenitro", "free-nitro", "roblox-com", "?pantner", "give-nitro", "com/gift", "info/promo", "trade/offer", "giveaway/discord", "&token", "/airdrop", "bit.ly", "rb.gy", "short.io", "linklyhq.com", "clickmeter.com", "pixelme.me", "bl.ink", "cutt.ly", "soo.gd", "tinycc.com", "clkim.com", "tinyurl.com", "t2mio.com", "tiny.ie", "shorturl.at", "bit.do", "yourls.org", "musicjet.com", "adf.ly", "is.gd", "ru.com", ".ru", ".link", ".su", ".site", ".click", '黑鬼'];
+
+
+    const filter = ["nigger", "c00ns", "n!gger", "coon", "n1gger", "nigga", "fag", "f4g", "chink", "ch1nk", "nigs", "n1gs", "n!gger", "n|gger", "niggur", 'n1ggur', 'n!ggur', "tranny", "trannie", "tr4nny", "tr4nnie", "XyZKsOq", "r9EWkux", "SAvJYv5", "steamconm", "stearncor", "steamncon", "steamcommi", "steamcomun", "steamcommun", "steamcommunityu", "steancommunytiu", "stearncomminuty", "d1scord", "dlscord", "discorb", "discorcl", "discords-", "d1scord-", "d1scord-gift", "discordgift", "nitrogift", "discordwales", "givenitro", "free-nitro", "roblox-com", "?pantner", "give-nitro", "com/gift", "info/promo", "trade/offer", "giveaway/discord", "&token", "/airdrop", "bit.ly", "rb.gy", "short.io", "linklyhq.com", "clickmeter.com", "pixelme.me", "bl.ink", "cutt.ly", "soo.gd", "tinycc.com", "clkim.com", "tinyurl.com", "t2mio.com", "tiny.ie", "shorturl.at", "bit.do", "yourls.org", "musicjet.com", "adf.ly", "is.gd", "ru.com", ".ru", ".link", ".su", ".site", ".click", '黑鬼'];
     const logChannel = message.guild.channels.cache.find(ch => ch.name === "logged-users");
     const msg = message.content.toLowerCase();
-
-    if (!logChannel) return (`Channel does not exist! Please create a channel with the name ${logChannel.name}`);
+    if (!logChannel) {
+        await message.delete();
+        return (`Channel does not exist! Please create a channel with the name "logged-users"`);
+    }
     for (var i = 0; i < filter.length; i++) {
         const embed = new EmbedBuilder()
         if (msg.includes(filter[i]) && !message.author.bot) {
@@ -100,7 +107,7 @@ client.on('messageCreate', async message => {
 
 client.on('messageUpdate', async (oldMessage, newMessage) => {
     if (oldMessage.content != newMessage.content) {
-        const filter = ["nigger", "c00ns", "n1gger", "nigga", "fag", "f4g", "chink", "ch1nk", "nigs", "n1gs", "n!gger", "n|gger", "niggur", 'n1ggur', 'n!ggur', "tranny", "trannie", "tr4nny", "tr4nnie", "XyZKsOq", "r9EWkux", "SAvJYv5", "steamconm", "stearncor", "steamncon", "steamcommi", "steamcomun", "steamcommun", "steamcommunityu", "steancommunytiu", "stearncomminuty", "d1scord", "dlscord", "discorb", "discorcl", "discords-", "d1scord-", "d1scord-gift", "discordgift", "nitrogift", "discordwales", "givenitro", "free-nitro", "roblox-com", "?pantner", "give-nitro", "com/gift", "info/promo", "trade/offer", "giveaway/discord", "&token", "/airdrop", "bit.ly", "rb.gy", "short.io", "linklyhq.com", "clickmeter.com", "pixelme.me", "bl.ink", "cutt.ly", "soo.gd", "tinycc.com", "clkim.com", "tinyurl.com", "t2mio.com", "tiny.ie", "shorturl.at", "bit.do", "yourls.org", "musicjet.com", "adf.ly", "is.gd", "ru.com", ".ru", ".link", ".su", ".site", ".click"];
+        const filter = ["nigger", "c00ns", "coon", "n!gger", "n1gger", "nigga", "fag", "f4g", "chink", "ch1nk", "nigs", "n1gs", "n!gger", "n|gger", "niggur", 'n1ggur', 'n!ggur', "tranny", "trannie", "tr4nny", "tr4nnie", "XyZKsOq", "r9EWkux", "SAvJYv5", "steamconm", "stearncor", "steamncon", "steamcommi", "steamcomun", "steamcommun", "steamcommunityu", "steancommunytiu", "stearncomminuty", "d1scord", "dlscord", "discorb", "discorcl", "discords-", "d1scord-", "d1scord-gift", "discordgift", "nitrogift", "discordwales", "givenitro", "free-nitro", "roblox-com", "?pantner", "give-nitro", "com/gift", "info/promo", "trade/offer", "giveaway/discord", "&token", "/airdrop", "bit.ly", "rb.gy", "short.io", "linklyhq.com", "clickmeter.com", "pixelme.me", "bl.ink", "cutt.ly", "soo.gd", "tinycc.com", "clkim.com", "tinyurl.com", "t2mio.com", "tiny.ie", "shorturl.at", "bit.do", "yourls.org", "musicjet.com", "adf.ly", "is.gd", "ru.com", ".ru", ".link", ".su", ".site", ".click"];
         const logChannel = newMessage.guild.channels.cache.find(ch => ch.name === "logged-users");
         const msg = newMessage.content.toLowerCase();
 
