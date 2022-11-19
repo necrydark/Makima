@@ -1,61 +1,115 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder, ActionRowBuilder, SelectMenuBuilder } = require('discord.js');
+const {
+    ComponentType,
+    EmbedBuilder,
+    SlashCommandBuilder,
+    ActionRowBuilder,
+    SelectMenuBuilder,
+} = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('Displays all the commands'),
+        .setName("help")
+        .setDescription("Get a list of all the commands form the discord bot."),
     async execute(interaction) {
-        // const embed = new EmbedBuilder()
-        //     .setTitle("Help")
-        //     .addFields(
-        //         { name: '/avatar', value: 'Displays users avatar. **/avatar or /avatar [target:]**' },
-        //         { name: '/ping', value: 'Replies with pong. **/ping**' },
-        //     )
-        //     .setFooter({ text: `Requested by: ${interaction.user.username}#${interaction.user.discriminator}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) });
+        const emojis = {
+            moderation: "🛠️",
+            general: "⚙️",
+        };
 
-        const row = new ActionRowBuilder()
-            .addComponents(
+        const directories = [
+            ...new Set(interaction.client.commands.map((cmd) => cmd.folder)),
+        ];
+
+        const formatString = (str) =>
+            `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`;
+
+        const categories = directories.map((dir) => {
+            const getCommands = interaction.client.commands
+                .filter((cmd) => cmd.folder === dir)
+                .map((cmd) => {
+                    return {
+                        name: cmd.data.name,
+                        description:
+                            cmd.data.description ||
+                            "There is no description for this command.",
+                        options: cmd.data.options.toString(),
+                    };
+                });
+
+            return {
+                directory: formatString(dir),
+                commands: getCommands,
+            };
+        });
+
+        const embed = new EmbedBuilder().setDescription(
+            "Please choose a category in the dropdown menu"
+        );
+
+        const components = (state) => [
+            new ActionRowBuilder().addComponents(
                 new SelectMenuBuilder()
-                    .setCustomId('category_embed')
-                    .setPlaceholder('Select a category')
+                    .setCustomId("help-menu")
+                    .setPlaceholder("Please select a category")
+                    .setDisabled(state)
                     .addOptions(
-                        [{
-                            label: 'Select me',
-                            description: 'This is a description',
-                            value: 'First Option'
-                        },
-                        {
-                            label: 'You can select me too',
-                            description: 'This is the second description',
-                            value: 'Second Option'
-                        },
-                        {
-                            label: 'You can select me too',
-                            description: 'This is the third description',
-                            value: 'Third Option'
-                        }],
-                    ),
+                        categories.map((cmd) => {
+                            return {
+                                label: cmd.directory,
+                                value: cmd.directory.toLowerCase(),
+                                description: `Commands from ${cmd.directory} category.`,
+                                emoji: emojis[cmd.directory.toLowerCase() || null],
+                            };
+                        })
+                    )
+            ),
+        ];
+
+        const initialMessage = await interaction.reply({
+            embeds: [embed],
+            components: components(false),
+            ephemeral: true,
+        });
+
+        const filter = (i) =>
+            i.user.id === interaction.user.id;
+
+        const collector = interaction.channel.createMessageComponentCollector({
+            filter,
+            componentType: ComponentType.SelectMenu,
+            idle: 10000,
+        });
+        collector.on("collect", async (interaction) => {
+            const [directory] = interaction.values;
+            const category = categories.find(
+                (x) => x.directory.toLowerCase() === directory
             );
-        // await interaction.reply({ embeds: [embed], })
 
-        const msg = await interaction.channel.send({
-            components: [row],
-            embeds: [new EmbedBuilder({
-                title: "Different categories",
-                description: "Check each category",
-            }).setColor("Random")]
+            const categoryEmbed = new EmbedBuilder()
+                .setTitle(`${formatString(directory)} commands`)
+                .setDescription(
+                    `A list of all the commands categorized under ${directory}`
+                )
+                .addFields(
+                    category.commands.map((cmd) => {
+                        return {
+                            name: `\`${cmd.name}\``,
+                            value: `${cmd.description}, ${cmd.options}`,
+                            inline: true,
+                        };
+                    })
+                );
+
+            await interaction.update({ embeds: [categoryEmbed], ephemeral: true })
+                .catch(error => {
+                    console.log(error);
+                    interaction.editReply("ERROR");
+                });
+            collector.stop();
         });
 
-        const col = msg.createMessageComponentCollector({
-            filter: i => i.user.id === interaction.user.id
-        });
-
-        col.on('collect', (i) => {
-            const value = i.values[0];
-            console.log(value);
-
-
+        collector.on("end", async () => {
+            await initialMessage.edit({ components: components(true), ephemeral: true });
         })
-    }
+    },
 };

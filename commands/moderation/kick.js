@@ -7,7 +7,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('kick')
         .setDescription('Mutes the user you want!')
-        
+
         .addUserOption(option => option.setName('target').setDescription('User you want to kick').setRequired(true))
         .addStringOption(option =>
             option.setName('reason')
@@ -18,21 +18,21 @@ module.exports = {
         const target = interaction.options.getMember('target')
         const reason = interaction.options.getString('reason');
 
-        if(!target) await interaction.reply('You need to add a target!');
+        if (!target) await interaction.reply('You need to add a target!');
 
-            if(target && !reason) {
-                const embed = new EmbedBuilder()
-                .setColor('GREEN')
+        if (target && !reason) {
+            const embed = new EmbedBuilder()
+                .setColor('Red')
                 .setDescription(`✅ ${target} has been kicked`);
-                target.kick()
-                await interaction.reply({ embeds: [embed]});
-            } else {
-                const embed = new EmbedBuilder()
-                .setColor('GREEN')
+            target.kick()
+            await interaction.reply({ embeds: [embed] });
+        } else {
+            const embed = new EmbedBuilder()
+                .setColor('Red')
                 .setDescription(`✅ ${target} has been kicked for ${reason}`);
-                target.kick();
-                await interaction.reply({ embeds: [embed]});
-              
+            target.kick();
+            await interaction.reply({ embeds: [embed] });
+
         }
     },
 };

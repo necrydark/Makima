@@ -1,7 +1,9 @@
 const fs = require('node:fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { clientId, token } = require('./config.json');
+// const { clientId, token } = require('./config.json');
+require('dotenv').config();
+
 
 const commands = [];
 
@@ -23,14 +25,14 @@ for (const folder of commandsFolder) {
 //     const command = require(`./commands/${file}`);
 //     commands.push(command.data.toJSON());
 // }
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST({ version: '9' }).setToken(process.env.token);
 
 (async () => {
     try {
         console.log('Refreshing / commands');
 
         await rest.put(
-            Routes.applicationCommands(clientId),
+            Routes.applicationCommands(process.env.clientID),
             { body: commands },
         );
 

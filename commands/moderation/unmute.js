@@ -21,7 +21,7 @@ module.exports = {
         } else {
             if (target) {
                 const embed = new EmbedBuilder()
-                    .setColor('GREEN')
+                    .setColor('Green')
                     .setDescription(`✅ ${target} has been unmuted`);
                 target.roles.remove(role);
                 await interaction.reply({ embeds: [embed] });

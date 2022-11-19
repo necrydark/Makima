@@ -32,7 +32,7 @@ module.exports = {
             if (role) {
                 if (target && !reason) {
                     const embed = new EmbedBuilder()
-                        .setColor('GREEN')
+                        .setColor('Red')
                         .setDescription(`✅ ${target} has been muted by ${interaction.user}`);
                     target.roles.add(role);
                     logChannel.send({ embeds: [embed] });
@@ -40,7 +40,7 @@ module.exports = {
 
                 } else {
                     const embed = new EmbedBuilder()
-                        .setColor('GREEN')
+                        .setColor('Red')
                         .setDescription(`✅ ${target} has been muted for ${reason} by ${interaction.user}`);
                     target.roles.add(role);
                     logChannel.send({ embeds: [embed] });

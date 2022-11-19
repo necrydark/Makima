@@ -1,9 +1,18 @@
 const { ActivityType } = require('discord.js');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 module.exports = {
     name: 'ready',
     once: true,
-    execute(client) {
+    async execute(client) {
+        await mongoose.connect(process.env.mongoose_URI || '', {
+            keepAlive: true,
+        });
+
+        if (mongoose.connect) {
+            console.log("MongoDB connection successful.")
+        }
         console.log(`Logged in as ${client.user.tag}`);
         client.user.setPresence({
             activities: [{ name: 'Playing with my dogs...' }],
