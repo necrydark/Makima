@@ -31,7 +31,7 @@ Avatar Checker
 
 ```python
 # Fork the repo
-  https://github.com/necrydark/Makima-Bot.git
+https://github.com/necrydark/Makima-Bot.git
  
 # Open Directory
 cd Makima-Bot
