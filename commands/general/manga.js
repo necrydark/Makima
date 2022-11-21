@@ -18,9 +18,9 @@ module.exports = {
         if (args.length < 1) {
             interaction.reply("Cannot take that argument.");
         }
-        let uRl = `https://kitsu.io/api/edge/manga?filter[text]=` + args;
+        let URL = `https://kitsu.io/api/edge/manga?filter[text]=` + args;
         let option = {
-            url: uRl,
+            url: URL,
             method: `GET`,
             headers: {
                 'Content-Type': "application/vnd.api+json",

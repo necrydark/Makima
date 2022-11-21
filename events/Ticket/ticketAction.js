@@ -1,5 +1,5 @@
 const { createTranscript } = require('discord-html-transcripts');
-const { ButtonInteraction, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
+const { ButtonInteraction, EmbedBuilder, PermissionFlagsBits, Guild } = require('discord.js');
 // require('dotenv').config();
 const ticketSetup = require('../../schemas/ticketsetup');
 const ticketSchema = require('../../schemas/ticket');
@@ -12,7 +12,7 @@ module.exports = {
 
         if (!interaction.isButton()) return;
 
-        if (!['close', 'lock', 'unlock', 'claim'].includes(customId)) return;
+        if (!['close', 'claim'].includes(customId)) return;
 
         const docs = await ticketSetup.findOne({ GuildID: guild.id });
 
@@ -29,7 +29,6 @@ module.exports = {
             if (!data) return;
 
             const fetchedMember = await guild.members.cache.get(data.MembersID);
-
             switch (customId) {
                 case "close":
                     if (data.Closed == true)
@@ -70,60 +69,37 @@ module.exports = {
                     }, 10000);
 
                     break;
-                case "lock":
-                    if (!member.permissions.has(ManageChannels))
-                        return interaction.reply({ content: "Cannot lock the ticket", ephemeral: true })
+                // case "lock":
+                //     if (!member.permissions.has(ManageChannels))
+                //         return interaction.reply({ content: "Cannot lock the ticket", ephemeral: true })
 
-                    if (data.Locked == true)
-                        return interaction.reply({ content: "Ticket is already locked", ephemeral: true });
+                //     if (data.Locked == true)
+                //         return interaction.reply({ content: "Ticket is already locked", ephemeral: true });
 
-                    await ticketSchema.updateOne({ ChannelID: channel.id }, { Locked: true });
-                    console.log(data.MembersID);
-                    data.MembersID.forEach((m) => {
-                        console.log(channel);
-                        channel.permissionsOverwrites.edit(m,
-                            {
-                                SendMessages: false,
-                                AttachFiles: false,
-                            }).catch(err => console.log(err));
-                    })
+                //     await ticketSchema.updateOne({ ChannelID: channel.id }, { Locked: true });
+                //     embed.setDescription("Ticket was locked 🔒");
 
 
-                    embed.setDescription("Ticket was locked 🔒");
+                //     data.MembersID.map((fetchedMember) => {
+                //         fetchedChannel.permissionsOverwrites.edit(fetchedMember, { SendMessages: false });
+                //     })
+                //     return interaction.reply({ embeds: [embed] });
 
+                // case "unlock":
+                //     if (!member.permissions.has(ManageChannels))
+                //         return interaction.reply({ content: "Cannot lock the ticket", ephemeral: true })
 
-                    return interaction.reply({ embeds: [embed] });
+                //     if (data.Locked == false)
+                //         return interaction.reply({ content: "Ticket is already locked", ephemeral: true });
 
-                case "unlock":
-                    if (!member.permissions.has(ManageChannels))
-                        return interaction.reply({ content: "Cannot lock the ticket", ephemeral: true })
+                //     await ticketSchema.updateOne({ ChannelID: channel.id }, { Locked: false });
+                //     embed.setDescription("Ticket was locked 🔓");
 
-                    if (data.Locked == false)
-                        return interaction.reply({ content: "Ticket is already unlocked", ephemeral: true });
+                //     data.MembersID.map((fetchedMember) => {
+                //         fetchedChannel.permissionsOverwrites.edit(fetchedMember, { SendMessages: true });
+                //     })
 
-                    await ticketSchema.updateOne({ ChannelID: channel.id }, { Locked: false });
-                    embed.setDescription("Ticket was locked 🔓");
-
-                    data.MembersID.forEach((m) => {
-                        console.log(channel);
-                        channel.permissionsOverwrites.edit(m,
-                            {
-                                "SendMessages": true,
-                                "AttachFiles": true,
-                            }).catch(err => console.log(err));
-                    })
-
-                    // if (data.Claimed) {
-                    //     data.ClaimedBy.forEach((m) => {
-                    //         channel.permissionsOverwrites.edit(m,
-                    //             {
-                    //                 "SendMessages": false,
-                    //                 "AttachFiles": false,
-                    //             });
-                    //     })
-                    // }
-
-                    return interaction.reply({ embeds: [embed] });
+                //     return interaction.reply({ embeds: [embed] });
 
                 case "claim":
                     if (!member.permissions.has(ManageChannels))

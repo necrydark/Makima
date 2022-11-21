@@ -45,7 +45,7 @@ module.exports = {
                     TicketID: ticketId,
                     ChannelID: channel.id,
                     Closed: false,
-                    Locked: false,
+
                     Type: customId,
                     Claimed: false,
                 });
@@ -57,9 +57,9 @@ module.exports = {
                     .setTimestamp();
 
                 const button = new ActionRowBuilder().setComponents(
-                    new ButtonBuilder().setCustomId('close').setLabel('Close Ticket').setStyle(ButtonStyle.Primary),
-                    new ButtonBuilder().setCustomId('lock').setLabel('Lock Ticket').setStyle(ButtonStyle.Secondary),
-                    new ButtonBuilder().setCustomId('unlock').setLabel('Unlock Ticket').setStyle(ButtonStyle.Success),
+                    new ButtonBuilder().setCustomId('close').setLabel('Close Ticket').setStyle(ButtonStyle.Danger),
+                    //new ButtonBuilder().setCustomId('lock').setLabel('Lock Ticket').setStyle(ButtonStyle.Secondary),
+                    // new ButtonBuilder().setCustomId('unlock').setLabel('Unlock Ticket').setStyle(ButtonStyle.Success),
                     new ButtonBuilder().setCustomId('claim').setLabel('Claim Ticket').setStyle(ButtonStyle.Secondary)
 
                 );

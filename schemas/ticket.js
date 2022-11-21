@@ -6,7 +6,7 @@ let ticketSchema = new Schema({
     TicketID: String,
     ChannelID: String,
     Closed: Boolean,
-    Locked: Boolean,
+    //  Locked: Boolean,
     Type: String,
     Claimed: Boolean,
     ClaimedBy: String,
