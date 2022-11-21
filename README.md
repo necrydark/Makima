@@ -21,8 +21,8 @@ Makima is a bot currently in development by a team of active developers team inc
 We are using APIs such as waifu.pics as well as kitsu.io for our anime side of the bot. 
 Waifu.pics is mainly for pictures and Kitsu.io is for searching anime and manga
 
-[waifu.pics](https://waifu.pics/docs)
-[kitsu.io](https://kitsu.docs.apiary.io/#)
+- [waifu.pics](https://waifu.pics/docs)
+- [kitsu.io](https://kitsu.docs.apiary.io/#)
 
 ## Features
 
