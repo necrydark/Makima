@@ -15,7 +15,7 @@ module.exports = {
         }
         console.log(`Logged in as ${client.user.tag}`);
         client.user.setPresence({
-            activities: [{ name: 'Playing with my dogs...' }],
+            activities: [{ name: 'with my dogs...', type: 'PLAYING' }],
             status: 'idle'
         });
     },

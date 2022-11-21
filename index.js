@@ -4,10 +4,17 @@ require('dotenv').config();
 // const { connect } = require('mongoose');
 const fs = require('node:fs');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent], partials: [Partials.Channel, Partials.Message] });
-//'MESSAGE', 'CHANNEL'
 const { loadEvents } = require('./handlers/eventHandler');
 const { loadCommands } = require('./handlers/commandHandler');
+
+const client = new Client({
+    intents: [Object.keys(GatewayIntentBits)],
+    partials: [Object.keys(Partials)],
+});
+
+// const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent], partials: [Partials.Channel, Partials.Message] });
+//'MESSAGE', 'CHANNEL'
+
 
 client.commands = new Collection();
 // const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));

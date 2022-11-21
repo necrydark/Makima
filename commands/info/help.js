@@ -94,7 +94,7 @@ module.exports = {
                     category.commands.map((cmd) => {
                         return {
                             name: `\`${cmd.name}\``,
-                            value: `${cmd.description}, ${cmd.options}`,
+                            value: `${cmd.description}`,
                             inline: true,
                         };
                     })
@@ -105,7 +105,6 @@ module.exports = {
                     console.log(error);
                     interaction.editReply("ERROR");
                 });
-            collector.stop();
         });
 
         collector.on("end", async () => {

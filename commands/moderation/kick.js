@@ -15,10 +15,18 @@ module.exports = {
                 .setRequired(false))
         .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
     async execute(interaction) {
-        const target = interaction.options.getMember('target')
-        const reason = interaction.options.getString('reason');
+        const { channel, options } = interaction;
+        const target = options.getMember('target')
+        const reason = options.getString('reason');
 
         if (!target) await interaction.reply('You need to add a target!');
+
+        const errEmbed = new EmbedBuilder()
+            .setDescription(`You can't take action on ${user.username} since they have a higher role.`)
+            .setColor(0xc72c3b)
+
+        if (member.roles.highest.position >= interaction.member.roles.highest.position)
+            return interaction.reply({ embeds: [errEmbed], ephemeral: true });
 
         if (target && !reason) {
             const embed = new EmbedBuilder()
