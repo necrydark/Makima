@@ -16,12 +16,12 @@ NodeJS v16 or higher
 MongoDB
 ```
 
-##APIs
+## APIs
 
 We are using APIs such as waifu.pics as well as kitsu.io for our anime side of the bot. 
 Waifu.pics is mainly for pictures and Kitsu.io is for searching anime and manga
 
-##Features
+## Features
 
 Moderation (Mute, Kick, Lock, Ban)
 Anime / Manga Info
@@ -31,7 +31,7 @@ Customisable Leave and Welcome Message
 Avatar Checker
 
 
-##Usage
+## Usage
 
 ```python
 # Fork the repo
