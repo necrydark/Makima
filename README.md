@@ -10,15 +10,19 @@ Makima is a bot currently in development by a team of active developers team inc
   ```
 
 ## Requirements
+```JavaScript
 VSCode
 NodeJS v16 or higher
 MongoDB
+```
 
 ##APIs
+
 We are using APIs such as waifu.pics as well as kitsu.io for our anime side of the bot. 
 Waifu.pics is mainly for pictures and Kitsu.io is for searching anime and manga
 
 ##Features
+
 Moderation (Mute, Kick, Lock, Ban)
 Anime / Manga Info
 Anime / Manga Pictures
