@@ -4,12 +4,12 @@ require('dotenv').config();
 // const { connect } = require('mongoose');
 const fs = require('node:fs');
 
-<<<<<<< HEAD
+
 const { loadEvents } = require('./handlers/eventHandler');
 const { loadCommands } = require('./handlers/commandHandler');
-=======
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.GuildVoiceStates], partials: ['MESSAGE', 'CHANNEL'] });
->>>>>>> 1a8e1b2d7dc380ca65f10693855598b6b3cbd469
+
+//const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.GuildVoiceStates], partials: ['MESSAGE', 'CHANNEL'] });
+
 
 const client = new Client({
     intents: [Object.keys(GatewayIntentBits)],
@@ -20,7 +20,7 @@ const client = new Client({
 //'MESSAGE', 'CHANNEL'
 
 
-<<<<<<< HEAD
+
 client.commands = new Collection();
 // const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
@@ -32,7 +32,6 @@ client.commands = new Collection();
 //         client.on(event.name, (...args) => event.execute(...args))
 //     }
 // }
-=======
 
 
 
@@ -42,9 +41,9 @@ client.commands = new Collection();
 
 
 
->>>>>>> 1a8e1b2d7dc380ca65f10693855598b6b3cbd469
+
+
 // const filter = ["nigger", "c00ns", "n1gger", "nigga","fag","f4g", "ni66er", "nig6er", "nigg3r", "nigg4","n1gg4" , "n1gg3r","chink", "ch1nk", "nigs", "n1gs", "n!gger", "n|gger", "niggur", 'n1ggur', 'n!ggur', "tranny", "trannie", "tr4nny", "tr4nnie","XyZKsOq", "r9EWkux", "SAvJYv5", "steamconm", "stearncor", "steamncon", "steamcommi", "steamcomun", "steamcommun", "steamcommunityu", "steancommunytiu", "stearncomminuty", "d1scord", "dlscord", "discorb", "discorcl", "discords-", "d1scord-", "d1scord-gift", "discordgift", "nitrogift", "discordwales", "givenitro", "free-nitro", "roblox-com", "?pantner", "give-nitro", "com/gift", "info/promo", "trade/offer", "giveaway/discord", "&token", "/airdrop", "bit.ly", "rb.gy", "short.io", "linklyhq.com", "clickmeter.com", "pixelme.me", "bl.ink", "cutt.ly", "soo.gd", "tinycc.com", "clkim.com", "tinyurl.com", "t2mio.com", "tiny.ie", "shorturl.at", "bit.do", "yourls.org", "musicjet.com", "adf.ly", "is.gd", "ru.com", ".ru", ".link", ".su", ".site", ".click"];
-//"mongodb": "mongodb+srv://darkdevadmin:VsBvLuI6mArIYx51@cluster0.ya608lo.mongodb.net/?retryWrites=true&w=majority"
 
 // client.commands = new Collection();
 
