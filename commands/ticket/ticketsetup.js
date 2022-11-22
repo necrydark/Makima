@@ -6,7 +6,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('ticket-setup')
         .setDescription('Creates a ticket message!')
-        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMembers)
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+
         .addChannelOption(option =>
             option.setName('channel')
                 .setDescription('Select the channel where you want the tickets to created at.')

@@ -46,9 +46,12 @@ cd Makima-Bot
 # Get Packages
 npm i
 
+<<<<<<< HEAD
 # Deploy Commands
 node deploy-commands.js
 
+=======
+>>>>>>> 1a8e1b2d7dc380ca65f10693855598b6b3cbd469
 # Run Bot
 node .
 ```
