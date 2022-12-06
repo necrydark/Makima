@@ -11,7 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^0.3.0",
+    "ascii-table": "^0.0.9",
+    "discord-html-transcripts": "^3.1.2",
     "discord.js": "^14.5.0",
-    "fs": "^0.0.1-security"
+    "dotenv": "^16.0.3",
+    "fs": "^0.0.1-security",
+    "mongoose": "^6.7.2",
+    "ms": "^2.1.3"
   }
 }
