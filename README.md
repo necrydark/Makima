@@ -38,10 +38,10 @@ Waifu.pics is mainly for pictures and Kitsu.io is for searching anime and manga
 
 ```bash
 # Fork the repo
-https://github.com/necrydark/Makima-Bot.git
+https://github.com/necrydark/makimabot.git
  
 # Open Directory
-cd Makima-Bot
+cd makimabot
 
 # Get Packages
 npm i
