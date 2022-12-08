@@ -46,12 +46,20 @@ cd Makima-Bot
 # Get Packages
 npm i
 
-<<<<<<< HEAD
-# Deploy Commands
-node deploy-commands.js
+# Adding token and connections
+Create a dotenv file in the project folder.
+
+token=YOUR BOT TOKEN
+clientID=YOUR CLIENT ID
+everyone= @EVERYONE ROLE ID
+ticketParent= TICKET CATEGORY ID
+openTicket= OPEN TICKET CHANNEL ID
+transcripts= TRANSCRIPT CHANNEL ID
+mongoose_URI=MONGODB CONNECTION STRING
+
 
 =======
->>>>>>> 1a8e1b2d7dc380ca65f10693855598b6b3cbd469
+
 # Run Bot
 node .
 ```
