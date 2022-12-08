@@ -57,9 +57,6 @@ openTicket= OPEN TICKET CHANNEL ID
 transcripts= TRANSCRIPT CHANNEL ID
 mongoose_URI=MONGODB CONNECTION STRING
 
-
-=======
-
 # Run Bot
 node .
 ```
