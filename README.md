@@ -14,7 +14,7 @@ Makima is a bot currently in development by a team of active developers team inc
 ## Requirements
 - VSCode
 - NodeJS v16 or higher
-- MongoDB
+- MongoDB with an active cluster set up and your IP accessible to this cluster.
 
 ## APIs
 
