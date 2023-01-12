@@ -8,7 +8,7 @@ function loadEvents(client) {
         const files = fs.readdirSync(`./Events/${folder}`).filter((file) => file.endsWith(".js"));
 
         for (const file of files) {
-            const event = require(`../events/${folder}/${file}`);
+            const event = require(`../../events/${folder}/${file}`);
 
             if (event.rest) {
                 if (event.once)

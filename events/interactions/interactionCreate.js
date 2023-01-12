@@ -1,4 +1,5 @@
 const { CommandInteraction } = require("discord.js");
+const ms = require('ms-prettify').default;
 
 module.exports = {
     name: "interactionCreate",
@@ -8,6 +9,11 @@ module.exports = {
             if (!command) {
                 return interaction.reply({ content: "outdated command" });
             }
+            const t = client.timeouts.get(`${interaction.user.id}_${command.name}`) || 0;
+
+            if(Date.now() - t < 0) return interaction.reply({content: `You are on a timeout of ${ms(t - Date.now(), {till: 'second'})}`, ephemeral: true});
+
+            client.timeouts.set(`${interaction.user.id}_${command.name}`, Date.now() + (command.timeout || 0))
             command.execute(interaction, client);
         } else {
             return;

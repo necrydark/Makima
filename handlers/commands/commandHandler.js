@@ -12,7 +12,7 @@ function loadCommands(client) {
             .filter((file) => file.endsWith(".js"));
 
         for (const file of commandFiles) {
-            const commandFile = require(`../commands/${folder}/${file}`);
+            const commandFile = require(`../../commands/${folder}/${file}`);
 
             const properties = { folder, ...commandFile };
             client.commands.set(commandFile.data.name, properties);

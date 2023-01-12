@@ -5,7 +5,6 @@
 Makima is a bot currently in development by a team of active developers team includes:
 
 - [@necrydark](https://github.com/necrydark)
-- [@Nuggie](https://github.com/Nuggie67)
 - [@Bisquts](https://github.com/MorganMartin56)
 - [@GrapeJuice](https://github.com/TheGrapeJuice)
 - [@G_Patch](https://github.com/Gpatch)

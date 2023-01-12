@@ -5,8 +5,8 @@ require('dotenv').config();
 const fs = require('node:fs');
 
 
-const { loadEvents } = require('./handlers/eventHandler');
-const { loadCommands } = require('./handlers/commandHandler');
+const { loadEvents } = require('./handlers/events/eventHandler');
+const { loadCommands } = require('./handlers/commands/commandHandler');
 
 //const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.GuildVoiceStates], partials: ['MESSAGE', 'CHANNEL'] });
 
@@ -16,7 +16,14 @@ const client = new Client({
     partials: [Object.keys(Partials)],
 });
 
+fs.readdirSync('./handlers').forEach((dir) => {
+    fs.readdirSync(`./handlers/${dir}`).forEach((handler) => {
+        require(`./handlers/${dir}/${handler}`)(client);
+    });
+});
+
 client.commands = new Collection();
+client.timeouts = new Collection();
 // const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 // for (const file of eventFiles) {
