@@ -16,9 +16,8 @@ module.exports = {
 
 
     async execute(interaction, client) {
-        const { channel, options } = interaction;
 
-        const target = interaction.options.getMember('target')
+        const target = interaction.options.getUser('target')
         const reason = interaction.options.getString('reason') || "No Reason Provided";
 
         const member = await interaction.guild.members.fetch(target.id);

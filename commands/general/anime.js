@@ -29,6 +29,7 @@ module.exports = {
         }
         await interaction.reply("Fetching info").then(msg => {
             get(option).then(mat => {
+                console.log(mat.data[0].relationships.genres.links.self);
                 const Embed = new EmbedBuilder()
                     .setTitle(`Name: ${mat.data[0].attributes.titles.en_jp} JP: ${mat.data[0].attributes.titles.ja_jp}`)
                     // .setURL(`${mat.data[0].links.self}`)

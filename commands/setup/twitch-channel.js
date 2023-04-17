@@ -1,20 +1,20 @@
 const { SlashCommandBuilder, ChannelType } = require("discord.js");
-const suggestionChannel = require("../../schemas/suggestionChannel");
+const twitchChannel = require("../../schemas/twitch");
 const wait = require('node:timers/promises').setTimeout
 
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('suggestion-setup')
+        .setName('twitch-setup')
         .setDescription('Manage the bot setup!')
         .addChannelOption(option => option.setName('channel').setDescription('The channel for suggestions').setRequired(true).addChannelTypes(ChannelType.GuildText)),
     async execute(interaction, client) {
         const { options, guildId } = interaction;
         const channel = options.getChannel('channel');
 
-        suggestionChannel.findOne({ GuildID: guildId }, async (err, data) => {
+        twitchChannel.findOne({ GuildID: guildId }, async (err, data) => {
             if (!data) {
-                await new suggestionChannel({
+                await new twitchChannel({
                     GuildID: guildId,
                     Channel: channel.id
                 }).save();
@@ -27,9 +27,7 @@ module.exports = {
                 //     Channel: channel.id
                 // });
             }
-
         });
-
 
         client.succNormal({
             text: `Channel has been set up successfully!`,

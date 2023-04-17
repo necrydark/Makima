@@ -3,6 +3,8 @@ require('dotenv').config();
 const fs = require('node:fs');
 
 
+const { DisTube } = require('distube');
+
 const { loadEvents } = require('./loaders/eventHandler');
 const { loadCommands } = require('./loaders/commandHandler');
 
@@ -12,6 +14,8 @@ const client = new Client({
     intents: [Object.keys(GatewayIntentBits), GatewayIntentBits.GuildPresences],
     partials: [Object.keys(Partials)],
 });
+
+
 
 client.commands = new Collection();
 client.emotes = require('./config/emojis.json');
