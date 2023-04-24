@@ -4,7 +4,7 @@
 ## Authors
 Makima is a bot currently in development by a team of active developers team includes:
 
-[@necrydark](https://github.com/necrydark)  
+- [@necrydark](https://github.com/necrydark)  
 - [@Bisquts](https://github.com/MorganMartin56)
 
 
